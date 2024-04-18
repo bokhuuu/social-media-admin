@@ -1,12 +1,10 @@
-import AddSocialMedia from "./components/AddSocialMedia";
+import AddSocialMediaForm from "./components/AddSocialMediaForm";
 
 const App = () => {
   return (
     <>
-      APP
-      <div>
-        <AddSocialMedia />
-      </div>
+      <h1>Social Media Admin Panel</h1>
+      <AddSocialMediaForm />
     </>
   );
 };

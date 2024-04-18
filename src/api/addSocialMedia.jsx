@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const BASE_URL = "http://localhost/backend/"; // Update with your backend URL
+import BASE_URL from "../config/constants";
 
 export const addSocialMedia = async (socialMediaData) => {
   try {
