@@ -1,5 +1,14 @@
+import AddSocialMedia from "./components/AddSocialMedia";
+
 const App = () => {
-  return <div>App</div>;
+  return (
+    <>
+      APP
+      <div>
+        <AddSocialMedia />
+      </div>
+    </>
+  );
 };
 
 export default App;
