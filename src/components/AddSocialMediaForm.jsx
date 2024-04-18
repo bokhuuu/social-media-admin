@@ -8,6 +8,11 @@ const AddSocialMediaForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Validate input fields
+    if (!socialMediaName || !socialMediaLink) {
+      setMessage("Please fill out all fields");
+      return;
+    }
     try {
       // Call the addSocialMedia function from the API service
       await addSocialMedia({

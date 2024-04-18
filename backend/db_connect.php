@@ -1,7 +1,16 @@
-<?php
 header("Access-Control-Allow-Origin: *");
+
+// Allow specific methods
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
-header("Access-Control-Allow-Headers: *");
+
+// Allow specific headers
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+// Handle preflight requests
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 $servername = "localhost";
 $username = "root"; // default username for XAMPP
