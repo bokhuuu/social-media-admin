@@ -31,7 +31,6 @@ const AddSocialMediaForm = () => {
 
   return (
     <div>
-      <h2>Add Social Media!</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Social Media Name:
