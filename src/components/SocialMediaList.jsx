@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchSocialMedia } from "../api/fetchSocialMedia";
 import { updateSocialMedia } from "../api/updateSocialMedia";
+import { deleteSocialMedia } from "../api/deleteSocialMedia";
 
 const SocialMediaList = () => {
   const [socialMediaList, setSocialMediaList] = useState([]);
@@ -38,6 +39,17 @@ const SocialMediaList = () => {
       fetchData();
     } catch (error) {
       console.error("Error updating social media:", error);
+    }
+  };
+
+  // Function to handle deletion
+  const handleDelete = async (id) => {
+    try {
+      await deleteSocialMedia(id);
+      // Fetch updated data after deletion
+      fetchData();
+    } catch (error) {
+      console.error("Error deleting social media:", error);
     }
   };
 
@@ -93,6 +105,9 @@ const SocialMediaList = () => {
                   }
                 >
                   Edit
+                </button>
+                <button onClick={() => handleDelete(socialMedia.ID)}>
+                  Delete
                 </button>
               </>
             )}
