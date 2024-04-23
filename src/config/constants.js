@@ -1,3 +1,3 @@
-const BASE_URL = "http://localhost/backend/social-media-admin/";
+export const BASE_URL = "http://localhost/backend/social-media-admin/";
 
-export default BASE_URL;
+export const ICONS_BASE_URL = "/assets/icons/";

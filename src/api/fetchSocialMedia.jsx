@@ -1,5 +1,5 @@
 import axios from "axios";
-import BASE_URL from "../config/constants";
+import { BASE_URL } from "../config/constants";
 
 export const fetchSocialMedia = async () => {
   try {

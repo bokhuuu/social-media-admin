@@ -2,12 +2,24 @@ import { useState, useEffect } from "react";
 import { fetchSocialMedia } from "../api/fetchSocialMedia";
 import { updateSocialMedia } from "../api/updateSocialMedia";
 import { deleteSocialMedia } from "../api/deleteSocialMedia";
+import { getIconFilename } from "../utils/socialMediaUtils";
+import { ICONS_BASE_URL } from "../config/constants";
 
 const SocialMediaList = () => {
   const [socialMediaList, setSocialMediaList] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [newName, setNewName] = useState("");
   const [newLink, setNewLink] = useState("");
+
+  // Social media icon mapping
+  const iconMapping = {
+    "facebook.com": "facebook.svg",
+    "twitter.com": "twitter.svg",
+    "instagram.com": "instagram.svg",
+    "youtube.com": "youtube.svg",
+    "linkedin.com": "linkedin.svg",
+    "tiktok.com": "tiktok.svg",
+  };
 
   // Function to fetch social media entries
   const fetchData = async () => {
@@ -63,12 +75,33 @@ const SocialMediaList = () => {
     return () => clearInterval(intervalId);
   }, []);
 
+  // // Function to extract domain from URL
+  // const extractDomain = (url) => {
+  //   const domain = url.replace(/(https?:\/\/)?(www\.)?/, "").split("/")[0];
+  //   return domain;
+  // };
+
+  // // Function to get icon filename based on domain
+  // const getIconFilename = (url) => {
+  //   const domain = extractDomain(url);
+  //   const iconName = iconMapping[domain] || "default.jpg";
+  //   return `/assets/icons/${iconName}`;
+  // };
+
   return (
     <div>
       <h1>Social Media List</h1>
       <ul>
         {socialMediaList.map((socialMedia) => (
           <li key={socialMedia.ID}>
+            <img
+              src={`${ICONS_BASE_URL}${getIconFilename(
+                socialMedia.Social_Media_Link,
+                iconMapping
+              )}`}
+              alt={socialMedia.Social_Media_Name}
+              style={{ width: 20, height: 20, marginRight: 5 }}
+            />
             {editingId === socialMedia.ID ? (
               <>
                 <input
