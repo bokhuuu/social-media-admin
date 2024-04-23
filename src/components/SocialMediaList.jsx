@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { fetchSocialMedia } from "../api/fetchSocialMedia";
+import { updateSocialMedia } from "../api/updateSocialMedia";
 
 const SocialMediaList = () => {
   const [socialMediaList, setSocialMediaList] = useState([]);
+  const [editingId, setEditingId] = useState(null);
+  const [newName, setNewName] = useState("");
+  const [newLink, setNewLink] = useState("");
 
   // Function to fetch social media entries
   const fetchData = async () => {
@@ -11,6 +15,29 @@ const SocialMediaList = () => {
       setSocialMediaList(data);
     } catch (error) {
       console.error("Error fetching social media:", error);
+    }
+  };
+
+  // Function to handle editing
+  const handleEdit = (id, name, link) => {
+    setEditingId(id);
+    setNewName(name);
+    setNewLink(link);
+  };
+
+  // Function to save changes after editing
+  const saveChanges = async (id) => {
+    try {
+      await updateSocialMedia({
+        id,
+        social_media_name: newName,
+        social_media_link: newLink,
+      });
+      setEditingId(null);
+      // Fetch updated data after editing
+      fetchData();
+    } catch (error) {
+      console.error("Error updating social media:", error);
     }
   };
 
@@ -30,14 +57,45 @@ const SocialMediaList = () => {
       <ul>
         {socialMediaList.map((socialMedia) => (
           <li key={socialMedia.ID}>
-            <strong>{socialMedia.Social_Media_Name}: </strong>
-            <a
-              href={socialMedia.Social_Media_Link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {socialMedia.Social_Media_Link}
-            </a>
+            {editingId === socialMedia.ID ? (
+              <>
+                <input
+                  type="text"
+                  value={newName}
+                  onChange={(e) => setNewName(e.target.value)}
+                />
+                <input
+                  type="text"
+                  value={newLink}
+                  onChange={(e) => setNewLink(e.target.value)}
+                />
+                <button onClick={() => saveChanges(socialMedia.ID)}>
+                  Save
+                </button>
+              </>
+            ) : (
+              <>
+                <strong>{socialMedia.Social_Media_Name}: </strong>
+                <a
+                  href={socialMedia.Social_Media_Link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {socialMedia.Social_Media_Link}
+                </a>
+                <button
+                  onClick={() =>
+                    handleEdit(
+                      socialMedia.ID,
+                      socialMedia.Social_Media_Name,
+                      socialMedia.Social_Media_Link
+                    )
+                  }
+                >
+                  Edit
+                </button>
+              </>
+            )}
           </li>
         ))}
       </ul>

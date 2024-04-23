@@ -1,7 +1,7 @@
 import axios from "axios";
 import BASE_URL from "../config/constants";
 
-const updateSocialMedia = async (socialMediaData) => {
+export const updateSocialMedia = async (socialMediaData) => {
   try {
     const response = await axios.post(BASE_URL + "update.php", socialMediaData);
     return response.data;
@@ -10,5 +10,3 @@ const updateSocialMedia = async (socialMediaData) => {
     throw new Error("Failed to update social media");
   }
 };
-
-export default updateSocialMedia;
