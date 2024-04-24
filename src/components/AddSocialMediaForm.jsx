@@ -13,6 +13,12 @@ const AddSocialMediaForm = () => {
       setMessage("Please fill out all fields");
       return;
     }
+    // Validate link to end with ".com"
+    if (!socialMediaLink.endsWith(".com")) {
+      setMessage("Please enter a valid link (ending with - com)");
+      return;
+    }
+
     try {
       // Call the addSocialMedia function from the API service
       await addSocialMedia({
@@ -23,6 +29,10 @@ const AddSocialMediaForm = () => {
       // Clear form fields after successful submission
       setSocialMediaName("");
       setSocialMediaLink("");
+      // Clear message after 3 seconds
+      setTimeout(() => {
+        setMessage("");
+      }, 3000);
     } catch (error) {
       setMessage("Error: Failed to add social media");
       console.error("Error adding social media:", error);
@@ -33,7 +43,9 @@ const AddSocialMediaForm = () => {
     <div className="container mt-3">
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label className="form-label text-primary fw-bold">Social Media Name</label>
+          <label className="form-label text-primary fw-bold">
+            Social Media Name
+          </label>
           <input
             type="text"
             value={socialMediaName}
@@ -58,7 +70,9 @@ const AddSocialMediaForm = () => {
           Submit
         </button>
       </form>
-      {message && <p className="mt-3">{message}</p>}
+      <p className="mt-3 text-primary" style={{ fontSize: "0.8rem" }}>
+        {message}
+      </p>
     </div>
   );
 };
