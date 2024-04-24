@@ -89,7 +89,11 @@ const SocialMediaList = () => {
                   )}`}
                   alt={socialMedia.Social_Media_Name}
                   className="img-fluid"
-                  style={{ width: 30, height: 30 }}
+                  style={{
+                    width: 30,
+                    height: 30,
+                    marginBottom: 10,
+                  }}
                 />
               </div>
               <div className="col mb-2 ">
