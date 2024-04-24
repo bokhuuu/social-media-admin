@@ -30,29 +30,35 @@ const AddSocialMediaForm = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-3">
       <form onSubmit={handleSubmit}>
-        <label>
-          Social Media Name:
+        <div className="mb-3">
+          <label className="form-label text-primary fw-bold">Social Media Name</label>
           <input
             type="text"
             value={socialMediaName}
             onChange={(e) => setSocialMediaName(e.target.value)}
+            className="form-control"
             required
           />
-        </label>
-        <label>
-          Social Media Link:
+        </div>
+        <div className="mb-3">
+          <label className="form-label text-primary fw-bold">
+            Social Media Link
+          </label>
           <input
             type="text"
             value={socialMediaLink}
             onChange={(e) => setSocialMediaLink(e.target.value)}
+            className="form-control"
             required
           />
-        </label>
-        <button type="submit">Submit</button>
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p className="mt-3">{message}</p>}
     </div>
   );
 };

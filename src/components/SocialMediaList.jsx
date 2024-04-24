@@ -75,75 +75,81 @@ const SocialMediaList = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  // // Function to extract domain from URL
-  // const extractDomain = (url) => {
-  //   const domain = url.replace(/(https?:\/\/)?(www\.)?/, "").split("/")[0];
-  //   return domain;
-  // };
-
-  // // Function to get icon filename based on domain
-  // const getIconFilename = (url) => {
-  //   const domain = extractDomain(url);
-  //   const iconName = iconMapping[domain] || "default.jpg";
-  //   return `/assets/icons/${iconName}`;
-  // };
-
   return (
-    <div>
-      <h1>Social Media List</h1>
-      <ul>
+    <div className="container">
+      <ul className="list-group">
         {socialMediaList.map((socialMedia) => (
-          <li key={socialMedia.ID}>
-            <img
-              src={`${ICONS_BASE_URL}${getIconFilename(
-                socialMedia.Social_Media_Link,
-                iconMapping
-              )}`}
-              alt={socialMedia.Social_Media_Name}
-              style={{ width: 20, height: 20, marginRight: 5 }}
-            />
-            {editingId === socialMedia.ID ? (
-              <>
-                <input
-                  type="text"
-                  value={newName}
-                  onChange={(e) => setNewName(e.target.value)}
+          <li key={socialMedia.ID} className="list-group-item">
+            <div className="row align-items-center">
+              <div className="col-auto ">
+                <img
+                  src={`${ICONS_BASE_URL}${getIconFilename(
+                    socialMedia.Social_Media_Link,
+                    iconMapping
+                  )}`}
+                  alt={socialMedia.Social_Media_Name}
+                  className="img-fluid"
+                  style={{ width: 30, height: 30 }}
                 />
-                <input
-                  type="text"
-                  value={newLink}
-                  onChange={(e) => setNewLink(e.target.value)}
-                />
-                <button onClick={() => saveChanges(socialMedia.ID)}>
-                  Save
-                </button>
-              </>
-            ) : (
-              <>
-                <strong>{socialMedia.Social_Media_Name}: </strong>
-                <a
-                  href={socialMedia.Social_Media_Link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {socialMedia.Social_Media_Link}
-                </a>
-                <button
-                  onClick={() =>
-                    handleEdit(
-                      socialMedia.ID,
-                      socialMedia.Social_Media_Name,
-                      socialMedia.Social_Media_Link
-                    )
-                  }
-                >
-                  Edit
-                </button>
-                <button onClick={() => handleDelete(socialMedia.ID)}>
-                  Delete
-                </button>
-              </>
-            )}
+              </div>
+              <div className="col mb-2 ">
+                {editingId === socialMedia.ID ? (
+                  <>
+                    <input
+                      type="text"
+                      value={newName}
+                      onChange={(e) => setNewName(e.target.value)}
+                      className="form-control"
+                    />
+                    <input
+                      type="text"
+                      value={newLink}
+                      onChange={(e) => setNewLink(e.target.value)}
+                      className="form-control"
+                    />
+                    <button
+                      onClick={() => saveChanges(socialMedia.ID)}
+                      className="btn btn-primary mt-2"
+                    >
+                      Save
+                    </button>
+                  </>
+                ) : (
+                  <div className="d-flex justify-content-between">
+                    <strong>{socialMedia.Social_Media_Name} </strong>
+                    <a
+                      href={socialMedia.Social_Media_Link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {socialMedia.Social_Media_Link}
+                    </a>
+                  </div>
+                )}
+              </div>
+              <div className="col-auto">
+                <div className="btn-group" role="group" aria-label="Actions">
+                  <button
+                    onClick={() =>
+                      handleEdit(
+                        socialMedia.ID,
+                        socialMedia.Social_Media_Name,
+                        socialMedia.Social_Media_Link
+                      )
+                    }
+                    className="btn btn-sm btn-outline-secondary"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(socialMedia.ID)}
+                    className="btn btn-sm btn-outline-danger"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
           </li>
         ))}
       </ul>
